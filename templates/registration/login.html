@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block media %}
+    <style>
+        #login-panel {
+            display: inline-block;
+            position: relative;
+        }
+
+        h4 {
+            padding-top: 1em;
+        }
+
+        .social {
+            display: inline;
+            font-size: 2.3em;
+            float: none;
+        }
+
+        .google-icon i {
+            color: #DD4B38;
+        }
+
+        .facebook-icon i {
+            color: #133783;
+        }
+
+        .github-icon i {
+            color: black;
+        }
+
+    form button {
+        text-align: center;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="ui stackable centered grid">
+    <div class="five wide column">
+    <div id="login-panel">
+        <form action="" class="ui form" method="post">
+            {% csrf_token %}
+            {% if form.errors %}
+                <div class="ui visible warning message">
+                    <p>{{ _('Invalid username or password.') }}</p>
+                </div>
+            {% endif %}
+                <div class="field">
+                  <label><i class="icon user"></i> {{ _('Username') }}</label>
+                  <input type="text" name="username">
+                </div>
+                <div class="field">
+                  <label><i class="icon key"></i> {{ _('Password') }}</label>
+                  <input type="password" name="password">
+                </div>
+                <button class="ui primary button" type="submit">{{ _('Login!') }}</button>
+                <a class="ui button" href="{{ url('password_reset') }}">{{ _('Forgot your password?') }}</a>
+            <input type="hidden" name="next" value="{{ next }}">
+        </form>
+
+        {% if form.has_google_auth or form.has_github_auth or form.has_azuread_auth %}
+        <h4>{{ _('Or log in with...') }}</h4>
+        {% if form.has_google_auth %}
+            <a href="{{ url('social:begin', "google-oauth2") }}?next={{ next }}" class="social google-icon">
+                <i class="icon large google"></i>
+            </a>
+        {% endif %}
+        {% if form.has_github_auth %}
+            <a href="{{ url('social:begin', "github-secure") }}?next={{ next }}" class="social github-icon">
+                <i class="icon large github"></i>
+            </a>
+        {% endif %}
+        {% if form.has_azuread_auth %}
+            <a href="/login/azuread-oauth2/?next=/" class="social">
+                <i class="icon large microsoft"></i>
+            </a> <br />
+            <small>(Use this only if you have registered)</small>
+        {% endif %}
+        {% endif %}
+    </div>
+</div>
+</div>
+{% endblock %}

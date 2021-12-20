@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block media %}
+    {{ form.media.css }}
+    <style>
+        .ui.input {
+            width: 100%;
+        }
+        .ui.button.primary {
+            margin-top: 10px;
+            float: right;
+        }
+    </style>
+{% endblock %}
+
+{% block js_media %}{{ form.media.js }}{% endblock %}
+
+{% block body %}
+    <form id="ticket-form" action="" method="POST" class="form-area">
+        {% block guideline_message %}{% endblock %}
+        {% csrf_token %}
+        <div class="ui large icon input {% if form.title.errors %} error{% endif %}">{{ form.title }}</div>
+        {% if form.title.errors or form.body.errors %}
+        <div class="form-errors">
+            {{ form.title.errors }}
+            {{ form.body.errors }}
+        </div>
+        {% endif %}
+        <div class="body-block">{{ form.body }}</div>
+        <button class="ui button primary" type="submit" class="submit">{{ _('Create') }}</button>
+    </form>
+{% endblock %}

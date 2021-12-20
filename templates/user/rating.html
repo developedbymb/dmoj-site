@@ -1,0 +1,6 @@
+{% spaceless %}
+    <span class="rate-group">
+        Rate
+        <span class="rating {{ rating_class(rating) }}">{{ rating.rating|default(rating) }}</span>
+    </span>
+{% endspaceless %}

@@ -1,0 +1,57 @@
+{% compress css %}
+    {{ comment_form.media.css }}
+    <style media="all">
+        .featherlight {
+            z-index: 1000;
+        }
+
+        .revision-text p:first-child {
+            margin-top: 0;
+        }
+
+        .revision-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .featherlight-edit .featherlight-content {
+            background: #FAFAFA;
+            padding: 10px 15px 10px 10px;
+            border-radius: 10px;
+            border: 1px solid #CCC;
+        }
+
+        .ui.threaded.comments {
+            max-width: 100%;
+        }
+
+        .comment-score {
+            height: 40%;
+            line-height: 100%;
+            text-align: center;
+            margin-left: 5px;
+            padding-top: 7px;
+        }
+
+        a.upvote-link {
+            height: 30%;
+        }
+
+        #divPostComment {
+            margin-top: 10px;
+        }
+
+        .bad-comment {
+            opacity: 0.3;
+        }
+
+        .bad-comment:hover {
+            opacity: 1;
+            /* This is necessary to prevent random flickering */
+            -webkit-transform: translatez(0);
+            -moz-transform: translatez(0);
+            -ms-transform: translatez(0);
+            -o-transform: translatez(0);
+            transform: translatez(0);
+        }
+    </style>
+{% endcompress %}

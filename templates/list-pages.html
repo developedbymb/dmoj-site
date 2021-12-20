@@ -1,0 +1,33 @@
+<div style="text-align: center">
+<div class="ui pagination menu">
+    {% if page_obj.has_previous() %}
+        {% if page_obj.previous_page_number() == 1 and first_page_href != None %}
+            <a class="item" href="{{ first_page_href }}">«</a>
+        {% else %}
+            <a class="item" href="{{ page_prefix or '' }}{{ page_obj.previous_page_number() }}{{ page_suffix or '' }}">«</a>
+        {% endif %}
+    {% else %}
+        <div class="diabled item">«</div>
+    {% endif %}
+
+    {% for page in page_obj.page_range %}
+        {% if not page %}
+            <div class="disabled item">...</div>
+        {% else %}
+            <a class="{% if page == page_obj.number %}active {% endif %}item" href="
+                {%- if page == 1 and first_page_href != None -%}
+                    {{ first_page_href }}
+                {%- else -%}
+                    {{ page_prefix or '' }}{{ page }}{{ page_suffix or '' }}
+                {%- endif -%}
+            ">{{ page }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next() %}
+        <a class="item" href="{{ page_prefix or '' }}{{ page_obj.next_page_number() }}{{ page_suffix or '' }}">»</a>
+    {% else %}
+        <div class="disabled item">»</div>
+    {% endif %}
+</div>
+</div>
